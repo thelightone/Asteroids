@@ -1,0 +1,7 @@
+{
+    "MaxCharges": 3,
+    "RechargeInterval": 5.0,
+    "Cooldown": 1.0,
+    "Length": 100.0,
+    "Duration": 0.15
+}

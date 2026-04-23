@@ -1,0 +1,13 @@
+{
+    "LargeAsteroidSpeed": 1.0,
+    "SmallAsteroidSpeed": 3.0,
+    "UfoSpeed": 2.0,
+    "LargeAsteroidRadius": 1.2,
+    "SmallAsteroidRadius": 0.6,
+    "UfoRadius": 0.8,
+    "LargeAsteroidReward": 20,
+    "SmallAsteroidReward": 50,
+    "UfoReward": 100,
+    "UfoSpawnInterval": 8.0,
+    "UfoBounceDuration": 2.0
+}
