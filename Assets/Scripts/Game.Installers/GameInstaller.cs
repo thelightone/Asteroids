@@ -10,6 +10,8 @@ public sealed class GameInstaller : MonoInstaller
 
     [SerializeField] private BulletView _bulletViewPrefab;
     [SerializeField] private Transform _bulletRoot;
+    [SerializeField] private MobileControlsView _mobileControlsView;
+    [SerializeField] private bool _forceMobileInputInEditor;
 
     public override void InstallBindings()
     {
@@ -51,7 +53,7 @@ public sealed class GameInstaller : MonoInstaller
         Container.Bind<BulletFactory>().AsSingle();
         Container.Bind<EnemyCleanupService>().AsSingle();
         Container.Bind<BulletMovementService>().AsSingle();
-        Container.Bind<IInputReader>().To<KeyboardInputReader>().AsSingle();
+        BindInputReader();
 
         Container.Bind<PlayerService>().FromMethod(context =>
         {
@@ -62,6 +64,7 @@ public sealed class GameInstaller : MonoInstaller
 
             return new PlayerService(
                 configs.PlayerConfig,
+                configs.LaserConfig,
                 inputReader,
                 configs.WorldConfig,
                 shipMovementService,
@@ -211,5 +214,47 @@ public sealed class GameInstaller : MonoInstaller
 
         Container.Bind<BulletViewSynchronizer>().AsSingle();
         Container.Bind<EnemyViewSynchronizer>().AsSingle();
+    }
+
+    private void BindInputReader()
+    {
+        bool shouldUseMobileInput = ShouldUseMobileInput();
+
+        if (shouldUseMobileInput && _mobileControlsView != null)
+        {
+            var mobileInputReader = new MobileInputReader();
+            Container.Bind<MobileInputReader>().FromInstance(mobileInputReader).AsSingle();
+            Container.Bind<IInputReader>().FromInstance(mobileInputReader).AsSingle();
+
+            _mobileControlsView.Initialize(mobileInputReader);
+            _mobileControlsView.SetVisible(true);
+            return;
+        }
+
+        Container.Bind<IInputReader>().To<KeyboardInputReader>().AsSingle();
+
+        if (shouldUseMobileInput)
+        {
+            Debug.LogWarning("Mobile platform detected, but MobileControlsView is not assigned. KeyboardInputReader fallback is used.");
+        }
+
+        if (_mobileControlsView != null)
+        {
+            _mobileControlsView.SetVisible(false);
+        }
+    }
+
+    private bool ShouldUseMobileInput()
+    {
+        if (Application.isMobilePlatform)
+        {
+            return true;
+        }
+
+#if UNITY_EDITOR
+        return _forceMobileInputInEditor;
+#else
+        return false;
+#endif
     }
 }

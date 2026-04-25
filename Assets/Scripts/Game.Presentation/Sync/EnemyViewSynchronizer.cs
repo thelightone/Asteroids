@@ -6,15 +6,18 @@ public class EnemyViewSynchronizer
 {
     private readonly EnemyCollectionService _enemyCollectionService;
     private readonly EnemyViewFactory _enemyViewFactory;
+    private readonly GameConfigService _gameConfigService;
 
     private readonly Dictionary<EnemyModel, EnemyView> _views = new();
 
     public EnemyViewSynchronizer(
         EnemyCollectionService enemyCollectionService,
-        EnemyViewFactory enemyViewFactory)
+        EnemyViewFactory enemyViewFactory,
+        GameConfigService gameConfigService)
     {
         _enemyCollectionService = enemyCollectionService;
         _enemyViewFactory = enemyViewFactory;
+        _gameConfigService = gameConfigService;
     }
 
     public void Sync()
@@ -33,6 +36,7 @@ public class EnemyViewSynchronizer
 
             view.transform.position = enemy.Position;
             view.transform.rotation = Quaternion.Euler(0f, 0f, enemy.Rotation);
+            view.SetScaleMultiplier(GetScaleMultiplier(enemy));
         }
 
         RemoveMissingViews(enemies);
@@ -62,5 +66,22 @@ public class EnemyViewSynchronizer
             _enemyViewFactory.Release(enemy, view);
             _views.Remove(enemy);
         }
+    }
+
+    private float GetScaleMultiplier(EnemyModel enemy)
+    {
+        if (enemy.Type != EnemyType.AsteroidSmall)
+        {
+            return 1f;
+        }
+
+        EnemyConfig enemyConfig = _gameConfigService.EnemyConfig;
+
+        if (enemyConfig.LargeAsteroidRadius <= 0f)
+        {
+            return 1f;
+        }
+
+        return enemyConfig.SmallAsteroidRadius / enemyConfig.LargeAsteroidRadius;
     }
 }

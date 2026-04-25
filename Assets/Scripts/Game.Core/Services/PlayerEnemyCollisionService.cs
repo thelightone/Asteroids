@@ -64,11 +64,6 @@ public class PlayerEnemyCollisionService : IGameTickable
                     enemy.BounceTimeLeft = _enemyConfig.UfoBounceDuration;
                 }
 
-                if (enemy.Type == EnemyType.Ufo)
-                {
-                    enemy.BounceTimeLeft = _enemyConfig.UfoBounceDuration;
-                }
-
                 _playerService.ApplyBounce(bounceDirection);
                 _playerService.ApplyDamage();
 

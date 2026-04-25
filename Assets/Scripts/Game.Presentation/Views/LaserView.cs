@@ -7,6 +7,7 @@ public class LaserView : MonoBehaviour
     [SerializeField] private float _visibleDuration = 0.08f;
 
     private LineRenderer _lineRenderer;
+    private int _showVersion;
 
     private void Awake()
     {
@@ -19,14 +20,31 @@ public class LaserView : MonoBehaviour
     {
         _lineRenderer.SetPosition(0, new Vector3(start.x, start.y, 0f));
         _lineRenderer.SetPosition(1, new Vector3(end.x, end.y, 0f));
+        _lineRenderer.enabled = true;
 
-        ShowRoutine().Forget();
+        _showVersion++;
+        ShowRoutine(_showVersion).Forget();
     }
 
-    private async UniTaskVoid ShowRoutine()
+    private async UniTaskVoid ShowRoutine(int showVersion)
     {
-        _lineRenderer.enabled = true;
         await UniTask.Delay((int)(_visibleDuration * 1000));
+
+        if (showVersion != _showVersion || _lineRenderer == null)
+        {
+            return;
+        }
+
         _lineRenderer.enabled = false;
+    }
+
+    private void OnDisable()
+    {
+        _showVersion++;
+
+        if (_lineRenderer != null)
+        {
+            _lineRenderer.enabled = false;
+        }
     }
 }

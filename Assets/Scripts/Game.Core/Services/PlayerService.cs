@@ -12,6 +12,7 @@ public class PlayerService : IGameTickable
     public event Action<int, float> LaserStateChanged;
 
     private readonly PlayerConfig _playerConfig;
+    private readonly LaserConfig _laserConfig;
     private readonly IInputReader _inputReader;
     private readonly WorldConfig _worldConfig;
     private readonly ShipMovementService _shipMovementService;
@@ -19,14 +20,15 @@ public class PlayerService : IGameTickable
 
     public float CollisionBounceForce => _playerConfig.CollisionBounceForce;
 
-    public float LaserDistance => _playerConfig.LaserDistance;
+    public float LaserDistance => _laserConfig.Length;
 
     public Vector2 Forward => _shipMovementService.GetForward(ShipModel.Rotation);
 
-    public PlayerService(PlayerConfig playerConfig, IInputReader inputReader, WorldConfig worldConfig,
+    public PlayerService(PlayerConfig playerConfig, LaserConfig laserConfig, IInputReader inputReader, WorldConfig worldConfig,
         ShipMovementService shipMovementService, WorldWrapService worldWrapService)
     {
         _playerConfig = playerConfig;
+        _laserConfig = laserConfig;
         _inputReader = inputReader;
 
         ShipModel = new ShipModel
@@ -39,8 +41,8 @@ public class PlayerService : IGameTickable
             InvulnerableTimeLeft = 0f,
             IsControlLocked = false,
             Radius = _playerConfig.Radius,
-            MaxLaserCharges = _playerConfig.MaxLaserCharges,
-            LaserCharges = _playerConfig.MaxLaserCharges,
+            MaxLaserCharges = _laserConfig.MaxCharges,
+            LaserCharges = _laserConfig.MaxCharges,
             LaserCooldownLeft = 0f,
         };
 
@@ -69,10 +71,13 @@ public class PlayerService : IGameTickable
         {
             CurrentInput = _inputReader.GetInput();
             PlayerInputData input = CurrentInput;
+            float turnDirection = input.HasDirectionalInput
+                ? CalculateTurnDirectionToTarget(input.Direction, deltaTime)
+                : input.TurnDirection;
 
             _shipMovementService.ApplyRotation(
                 ShipModel,
-                input.TurnDirection,
+                turnDirection,
                 _playerConfig.RotationSpeed,
                 deltaTime
             );
@@ -106,6 +111,20 @@ public class PlayerService : IGameTickable
         _shipMovementService.ClampSpeed(ShipModel, _playerConfig.MaxSpeed);
         _shipMovementService.Move(ShipModel, deltaTime);
         _worldWrapService.WrapPosition(ShipModel, _worldConfig);
+    }
+
+    private float CalculateTurnDirectionToTarget(Vector2 desiredDirection, float deltaTime)
+    {
+        if (desiredDirection.sqrMagnitude <= 0f)
+        {
+            return 0f;
+        }
+
+        float targetRotation = Mathf.Atan2(-desiredDirection.x, desiredDirection.y) * Mathf.Rad2Deg;
+        float deltaAngle = Mathf.DeltaAngle(ShipModel.Rotation, targetRotation);
+        float maxTurnStep = Mathf.Max(0.0001f, _playerConfig.RotationSpeed * deltaTime);
+
+        return Mathf.Clamp(-deltaAngle / maxTurnStep, -1f, 1f);
     }
 
     private void UpdateInvulnerability(float deltaTime)
@@ -211,7 +230,7 @@ public class PlayerService : IGameTickable
 
             if (ShipModel.LaserCharges < ShipModel.MaxLaserCharges)
             {
-                ShipModel.LaserCooldownLeft = _playerConfig.LaserCooldownDuration;
+                ShipModel.LaserCooldownLeft = _laserConfig.RechargeInterval;
             }
             else
             {
@@ -238,7 +257,7 @@ public class PlayerService : IGameTickable
 
         if (ShipModel.LaserCooldownLeft <= 0f)
         {
-            ShipModel.LaserCooldownLeft = _playerConfig.LaserCooldownDuration;
+            ShipModel.LaserCooldownLeft = _laserConfig.RechargeInterval;
         }
 
         NotifyLaserStateChanged();

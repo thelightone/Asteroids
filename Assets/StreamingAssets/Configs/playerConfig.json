@@ -6,8 +6,5 @@
     "RotationSpeed": 180.0,
     "CollisionBounceForce": 1.0,
     "InvulnerabilityDuration": 3.0,
-    "Radius": 0.5,
-    "MaxLaserCharges": 3,
-    "LaserCooldownDuration": 5.0,
-    "LaserDistance": 20.0
+    "Radius": 0.5
 }

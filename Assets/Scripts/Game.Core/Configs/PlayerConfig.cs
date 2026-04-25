@@ -10,8 +10,4 @@ public class PlayerConfig
     public float CollisionBounceForce;
     public float InvulnerabilityDuration;
     public float Radius;
-
-    public int MaxLaserCharges;
-    public float LaserCooldownDuration;
-    public float LaserDistance;
 }

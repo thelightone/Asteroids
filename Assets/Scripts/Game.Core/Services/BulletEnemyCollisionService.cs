@@ -51,7 +51,7 @@ public class BulletEnemyCollisionService : IGameTickable
 
                     bullet.IsActive = false;
                     enemy.IsActive = false;
-                    return;
+                    break;
                 }
             }
         }
