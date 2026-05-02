@@ -1,10 +1,12 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerView : MonoBehaviour
 {
     private PlayerService _playerService;
 
-    public void Initialize(PlayerService playerService)
+    [Inject]
+    private void Construct(PlayerService playerService)
     {
         _playerService = playerService;
     }

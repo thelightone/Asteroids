@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class LivesView : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class LivesView : MonoBehaviour
 
     private PlayerService _playerService;
 
-    public void Initialize(PlayerService playerService)
+    [Inject]
+    private void Construct(PlayerService playerService)
     {
         _playerService = playerService;
         _playerService.HealthChanged += OnHealthChanged;

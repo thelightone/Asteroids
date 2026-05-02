@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class ShipStatsView : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class ShipStatsView : MonoBehaviour
 
     private ShipStatsViewModel _viewModel;
 
-    public void Initialize(ShipStatsViewModel viewModel)
+    [Inject]
+    private void Construct(ShipStatsViewModel viewModel)
     {
         _viewModel = viewModel;
         Refresh();

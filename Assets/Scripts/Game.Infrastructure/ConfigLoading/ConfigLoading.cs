@@ -5,6 +5,7 @@ public class GameConfigService
     public LaserConfig LaserConfig { get; private set; }
     public EnemyConfig EnemyConfig { get; private set; }
     public WorldConfig WorldConfig { get; private set; }
+    public GameFlowConfig GameFlowConfig { get; private set; }
 
     private readonly JsonConfigLoader _loader;
 
@@ -20,5 +21,6 @@ public class GameConfigService
         LaserConfig = _loader.Load<LaserConfig>("laserConfig.json");
         EnemyConfig = _loader.Load<EnemyConfig>("enemyConfig.json");
         WorldConfig = _loader.Load<WorldConfig>("worldConfig.json");
+        GameFlowConfig = _loader.Load<GameFlowConfig>("gameFlowConfig.json");
     }
 }

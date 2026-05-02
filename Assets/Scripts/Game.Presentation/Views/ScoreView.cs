@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class ScoreView : MonoBehaviour
 {
@@ -7,7 +8,8 @@ public class ScoreView : MonoBehaviour
 
     private ScoreViewModel _viewModel;
 
-    public void Initialize(ScoreViewModel viewModel)
+    [Inject]
+    private void Construct(ScoreViewModel viewModel)
     {
         _viewModel = viewModel;
         _viewModel.ScoreChanged += OnScoreChanged;

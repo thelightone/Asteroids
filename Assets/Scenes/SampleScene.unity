@@ -6469,6 +6469,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1851726193}
+  - {fileID: 1258330639}
   _installerPrefabs: []
   _findSiblingMonoInstallers: 0
   _autoRun: 1
@@ -6933,6 +6934,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1258330637}
   - component: {fileID: 1258330638}
+  - component: {fileID: 1258330639}
   m_Layer: 0
   m_Name: Ads
   m_TagString: Untagged
@@ -6965,6 +6967,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5506c2408b9c92b40b86a995ceddf096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1258330639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258330636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e1f2a3b4c5d6e7f8091a2b3c4d5e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1272177185
@@ -8294,7 +8308,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2049399482}
-  - component: {fileID: 2049399481}
+  - component: {fileID: 2049399483}
+  - component: {fileID: 2049399484}
+  - component: {fileID: 2049399485}
+  - component: {fileID: 2049399487}
   m_Layer: 0
   m_Name: GameRunner
   m_TagString: Untagged
@@ -8302,26 +8319,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2049399481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2049399480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cda60a8585d12649a2a0e829721652a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerView: {fileID: 1516153044}
-  _scoreView: {fileID: 1846622642}
-  _livesView: {fileID: 24222688}
-  _shipInvulnerabilityView: {fileID: 1615729979}
-  _gameOverView: {fileID: 1613564111}
-  _shipStatsView: {fileID: 924810112}
-  _laserView: {fileID: 561940966}
-  adsTest: {fileID: 1258330638}
 --- !u!4 &2049399482
 Transform:
   m_ObjectHideFlags: 0
@@ -8337,6 +8334,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 185086667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2049399483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049399480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e8d9c0b1a243658798700998877661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2049399484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049399480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d7c8b9a0f132547687699088766550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2049399485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049399480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c6b7a809e123436576588977665544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2049399487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049399480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a4859607c001214354366755443322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _laserView: {fileID: 561940966}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

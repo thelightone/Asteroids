@@ -13,6 +13,8 @@ public sealed class GameInstaller : MonoInstaller
     [SerializeField] private MobileControlsView _mobileControlsView;
     [SerializeField] private bool _forceMobileInputInEditor;
 
+    private bool _bindMobileControlsView;
+
     public override void InstallBindings()
     {
         SignalBusInstaller.Install(Container);
@@ -214,6 +216,23 @@ public sealed class GameInstaller : MonoInstaller
 
         Container.Bind<BulletViewSynchronizer>().AsSingle();
         Container.Bind<EnemyViewSynchronizer>().AsSingle();
+
+        BindSceneUiViews();
+    }
+
+    private void BindSceneUiViews()
+    {
+        Container.Bind<PlayerView>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<ScoreView>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<LivesView>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<ShipInvulnerabilityView>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<GameOverView>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<ShipStatsView>().FromComponentInHierarchy().AsSingle().NonLazy();
+
+        if (_bindMobileControlsView && _mobileControlsView != null)
+        {
+            Container.Bind<MobileControlsView>().FromInstance(_mobileControlsView).AsSingle().NonLazy();
+        }
     }
 
     private void BindInputReader()
@@ -226,10 +245,12 @@ public sealed class GameInstaller : MonoInstaller
             Container.Bind<MobileInputReader>().FromInstance(mobileInputReader).AsSingle();
             Container.Bind<IInputReader>().FromInstance(mobileInputReader).AsSingle();
 
-            _mobileControlsView.Initialize(mobileInputReader);
+            _bindMobileControlsView = true;
             _mobileControlsView.SetVisible(true);
             return;
         }
+
+        _bindMobileControlsView = false;
 
         Container.Bind<IInputReader>().To<KeyboardInputReader>().AsSingle();
 

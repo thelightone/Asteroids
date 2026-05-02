@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class GameOverView : MonoBehaviour
 {
@@ -7,7 +8,8 @@ public class GameOverView : MonoBehaviour
 
     private PlayerService _playerService;
 
-    public void Initialize(PlayerService playerService)
+    [Inject]
+    private void Construct(PlayerService playerService)
     {
         _playerService = playerService;
         _playerService.Died += OnPlayerDied;

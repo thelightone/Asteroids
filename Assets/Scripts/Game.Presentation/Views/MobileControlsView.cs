@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class MobileControlsView : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class MobileControlsView : MonoBehaviour
 
     private MobileInputReader _inputReader;
 
-    public void Initialize(MobileInputReader inputReader)
+    [Inject]
+    private void Construct(MobileInputReader inputReader)
     {
         _inputReader = inputReader;
 
