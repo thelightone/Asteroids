@@ -1,3 +1,5 @@
+namespace Game.Core
+{
 public class WorldConfig
 {
     public float Width;
@@ -5,4 +7,6 @@ public class WorldConfig
 
     public int MaxEnemies;
     public float SpawnOutsideOffset;
+    public float LargeAsteroidSpawnRingDistance;
+}
 }

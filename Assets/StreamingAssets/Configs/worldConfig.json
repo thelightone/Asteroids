@@ -2,5 +2,6 @@
     "Width": 30.0,
     "Height": 18.0,
     "MaxEnemies": 20,
-    "SpawnOutsideOffset": 2.0
+    "SpawnOutsideOffset": 2.0,
+    "LargeAsteroidSpawnRingDistance": 12.0
 }

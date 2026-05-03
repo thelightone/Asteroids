@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class EnemyMovementService
+namespace Game.Core
+{
+public class EnemyMovementService : IGameTickable
 {
     private readonly EnemyCollectionService _enemyCollectionService;
     private readonly WorldWrapService _worldWrapService;
@@ -22,7 +24,7 @@ public class EnemyMovementService
         _playerService = playerService;
     }
 
-    public void MoveEnemies(float deltaTime)
+    public void Tick(float deltaTime)
     {
         for (int i = 0; i < _enemyCollectionService.Enemies.Count; i++)
         {
@@ -64,4 +66,5 @@ public class EnemyMovementService
         directionToPlayer = directionToPlayer.normalized;
         enemy.Velocity = directionToPlayer * _enemyConfig.UfoSpeed;
     }
+}
 }

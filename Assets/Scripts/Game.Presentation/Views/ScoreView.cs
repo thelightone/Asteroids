@@ -2,6 +2,12 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
+using Game.Core;
+using Game.Infrastructure;
+using Game.Signals;
+
+namespace Game.Presentation
+{
 public class ScoreView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
@@ -29,4 +35,5 @@ public class ScoreView : MonoBehaviour
             _viewModel.ScoreChanged -= OnScoreChanged;
         }
     }
+}
 }

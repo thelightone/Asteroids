@@ -1,6 +1,6 @@
 {
     "name": "Game.Core",
-    "rootNamespace": "",
+    "rootNamespace": "Game.Core",
     "references": [
         "GUID:1728c940784a6614e9c6e56ced0b0426",
         "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"

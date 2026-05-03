@@ -1,77 +1,41 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
+namespace Game.Presentation
+{
 public class MobileControlsView : MonoBehaviour
 {
     [SerializeField] private MobileJoystickView _joystickView;
     [SerializeField] private Button _bulletButton;
     [SerializeField] private Button _laserButton;
 
-    private MobileInputReader _inputReader;
+    public event Action<Vector2>? MovementChanged;
+    public event Action? MovementStopped;
+    public event Action? FireBulletClicked;
+    public event Action? FireLaserClicked;
 
-    [Inject]
-    private void Construct(MobileInputReader inputReader)
+    private void Awake()
     {
-        _inputReader = inputReader;
-
         if (_joystickView != null)
         {
-            _joystickView.DirectionChanged -= OnJoystickDirectionChanged;
             _joystickView.DirectionChanged += OnJoystickDirectionChanged;
         }
 
         if (_bulletButton != null)
         {
-            _bulletButton.onClick.RemoveListener(OnBulletButtonClick);
             _bulletButton.onClick.AddListener(OnBulletButtonClick);
         }
 
         if (_laserButton != null)
         {
-            _laserButton.onClick.RemoveListener(OnLaserButtonClick);
             _laserButton.onClick.AddListener(OnLaserButtonClick);
         }
     }
 
-    public void SetVisible(bool isVisible)
-    {
-        gameObject.SetActive(isVisible);
-    }
-
-    private void OnJoystickDirectionChanged(Vector2 direction)
-    {
-        if (_inputReader == null)
-        {
-            return;
-        }
-
-        _inputReader.SetMovement(direction);
-    }
-
-    private void OnBulletButtonClick()
-    {
-        if (_inputReader == null)
-        {
-            return;
-        }
-
-        _inputReader.QueueFireBullet();
-    }
-
-    private void OnLaserButtonClick()
-    {
-        if (_inputReader == null)
-        {
-            return;
-        }
-
-        _inputReader.QueueFireLaser();
-    }
-
     private void OnDisable()
     {
-        _inputReader?.SetMovement(Vector2.zero);
+        MovementStopped?.Invoke();
     }
 
     private void OnDestroy()
@@ -91,4 +55,26 @@ public class MobileControlsView : MonoBehaviour
             _laserButton.onClick.RemoveListener(OnLaserButtonClick);
         }
     }
+
+    public void SetVisible(bool isVisible)
+    {
+        gameObject.SetActive(isVisible);
+    }
+
+    private void OnJoystickDirectionChanged(Vector2 direction)
+    {
+        MovementChanged?.Invoke(direction);
+    }
+
+    private void OnBulletButtonClick()
+    {
+        FireBulletClicked?.Invoke();
+    }
+
+    private void OnLaserButtonClick()
+    {
+        FireLaserClicked?.Invoke();
+    }
+}
+
 }

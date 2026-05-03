@@ -1,3 +1,5 @@
+namespace Game.Signals
+{
 public readonly struct ScoreChangedSignal
 {
     public readonly int Score;
@@ -6,4 +8,5 @@ public readonly struct ScoreChangedSignal
     {
         Score = score;
     }
+}
 }

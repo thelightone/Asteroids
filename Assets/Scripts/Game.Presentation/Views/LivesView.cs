@@ -1,24 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
+namespace Game.Presentation
+{
 public class LivesView : MonoBehaviour
 {
     [SerializeField] private Image[] _lifeIcons;
     [SerializeField] private float _inactiveAlpha = 0.25f;
 
-    private PlayerService _playerService;
-
-    [Inject]
-    private void Construct(PlayerService playerService)
-    {
-        _playerService = playerService;
-        _playerService.HealthChanged += OnHealthChanged;
-
-        OnHealthChanged(_playerService.ShipModel.Health);
-    }
-
-    private void OnHealthChanged(int health)
+    public void SetLives(int health)
     {
         if (_lifeIcons == null || _lifeIcons.Length == 0)
         {
@@ -41,12 +31,5 @@ public class LivesView : MonoBehaviour
             lifeIcon.color = iconColor;
         }
     }
-
-    private void OnDestroy()
-    {
-        if (_playerService != null)
-        {
-            _playerService.HealthChanged -= OnHealthChanged;
-        }
-    }
+}
 }

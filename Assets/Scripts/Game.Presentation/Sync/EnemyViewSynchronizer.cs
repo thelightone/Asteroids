@@ -1,7 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
+using Game.Core;
+using Game.Infrastructure;
+
+namespace Game.Presentation
+{
 public class EnemyViewSynchronizer
 {
     private readonly EnemyCollectionService _enemyCollectionService;
@@ -44,11 +48,12 @@ public class EnemyViewSynchronizer
 
     private void RemoveMissingViews(IReadOnlyList<EnemyModel> enemies)
     {
+        var active = new HashSet<EnemyModel>(enemies);
         List<EnemyModel> toRemove = null;
 
         foreach (var pair in _views)
         {
-            if (!enemies.Contains(pair.Key))
+            if (!active.Contains(pair.Key))
             {
                 toRemove ??= new List<EnemyModel>();
                 toRemove.Add(pair.Key);
@@ -84,4 +89,5 @@ public class EnemyViewSynchronizer
 
         return enemyConfig.SmallAsteroidRadius / enemyConfig.LargeAsteroidRadius;
     }
+}
 }

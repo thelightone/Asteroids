@@ -1,3 +1,5 @@
+namespace Game.Core
+{
 public class PlayerConfig
 {
     public int MaxHealth;
@@ -10,4 +12,5 @@ public class PlayerConfig
     public float CollisionBounceForce;
     public float InvulnerabilityDuration;
     public float Radius;
+}
 }

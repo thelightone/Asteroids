@@ -5868,7 +5868,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d39f573f56cab49bcdc68f3d50e0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visibleDuration: 0.08
 --- !u!120 &561940967
 LineRenderer:
   serializedVersion: 2
@@ -6969,6 +6968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5506c2408b9c92b40b86a995ceddf096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: d1c2e3f4a5b607182930415161718192, type: 2}
 --- !u!114 &1258330639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7634,6 +7634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 1516153045}
   _invulnerabilityRingParticles: {fileID: 315977112}
+  _blinkFrequency: 12
 --- !u!4 &1615729980
 Transform:
   m_ObjectHideFlags: 0
@@ -8043,7 +8044,7 @@ MonoBehaviour:
   _bulletViewPrefab: {fileID: 4295246422298291862, guid: 92032dafe0f926c46b1a511a6662113b, type: 3}
   _bulletRoot: {fileID: 138032589}
   _mobileControlsView: {fileID: 1596620095}
-  _forceMobileInputInEditor: 0
+  _forceMobileInputInEditor: 1
 --- !u!1 &1890999666
 GameObject:
   m_ObjectHideFlags: 0
@@ -8308,7 +8309,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2049399482}
-  - component: {fileID: 2049399483}
   - component: {fileID: 2049399484}
   - component: {fileID: 2049399485}
   - component: {fileID: 2049399487}
@@ -8334,18 +8334,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 185086667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2049399483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2049399480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7e8d9c0b1a243658798700998877661, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2049399484
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,7 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
+using Game.Core;
+using Game.Infrastructure;
+
+namespace Game.Presentation
+{
 public class BulletViewSynchronizer
 {
     private readonly BulletCollectionService _bulletCollectionService;
@@ -39,11 +43,12 @@ public class BulletViewSynchronizer
 
     private void RemoveMissingViews(IReadOnlyList<BulletModel> bullets)
     {
+        var active = new HashSet<BulletModel>(bullets);
         List<BulletModel> toRemove = null;
 
         foreach (var pair in _views)
         {
-            if (!bullets.Contains(pair.Key))
+            if (!active.Contains(pair.Key))
             {
                 toRemove ??= new List<BulletModel>();
                 toRemove.Add(pair.Key);
@@ -62,4 +67,5 @@ public class BulletViewSynchronizer
             _views.Remove(bullet);
         }
     }
+}
 }

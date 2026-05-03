@@ -1,3 +1,5 @@
+namespace Game.Signals
+{
 public readonly struct EnemyDestroyedSignal
 {
     public readonly int EnemyTypeValue;
@@ -6,4 +8,5 @@ public readonly struct EnemyDestroyedSignal
     {
         EnemyTypeValue = enemyTypeValue;
     }
+}
 }

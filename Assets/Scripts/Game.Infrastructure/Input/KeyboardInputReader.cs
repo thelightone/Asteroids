@@ -1,5 +1,8 @@
+using Game.Core;
 using UnityEngine;
 
+namespace Game.Infrastructure
+{
 public class KeyboardInputReader : IInputReader
 {
     public PlayerInputData GetInput()
@@ -25,4 +28,5 @@ public class KeyboardInputReader : IInputReader
 
         return input;
     }
+}
 }

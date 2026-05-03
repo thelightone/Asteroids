@@ -1,6 +1,12 @@
 using System;
 using Zenject;
 
+using Game.Core;
+using Game.Infrastructure;
+using Game.Signals;
+
+namespace Game.Presentation
+{
 public class ScoreViewModel : IInitializable, IDisposable
 {
     private readonly SignalBus _signalBus;
@@ -29,4 +35,5 @@ public class ScoreViewModel : IInitializable, IDisposable
         Score = signal.Score;
         ScoreChanged?.Invoke(Score);
     }
+}
 }

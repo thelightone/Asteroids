@@ -1,5 +1,8 @@
+using Game.Core;
 using UnityEngine;
 
+namespace Game.Infrastructure
+{
 public class MobileInputReader : IInputReader
 {
     private const float DeadZone = 0.1f;
@@ -44,4 +47,6 @@ public class MobileInputReader : IInputReader
 
         return input;
     }
+}
+
 }

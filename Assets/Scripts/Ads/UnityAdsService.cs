@@ -1,19 +1,31 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class AdsTest : MonoBehaviour,
+public sealed class UnityAdsService : MonoBehaviour,
     IUnityAdsInitializationListener,
     IUnityAdsLoadListener,
     IUnityAdsShowListener
 {
-    private const string GameId = "6099580";
-    private const string InterstitialId = "Interstitial_Android";
+    [SerializeField] private UnityAdsConfig config;
 
     private bool _isLoaded;
+    private string AdUnitId => config != null ? config.InterstitialAdUnitId : string.Empty;
 
     private void Start()
     {
-        Advertisement.Initialize(GameId, true, this);
+        if (config == null)
+        {
+            Debug.LogError("[Ads] UnityAdsConfig is not assigned on UnityAdsService.");
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(config.GameId) || string.IsNullOrWhiteSpace(config.InterstitialAdUnitId))
+        {
+            Debug.LogError("[Ads] UnityAdsConfig: Game Id and Interstitial Ad Unit Id must be set.");
+            return;
+        }
+
+        Advertisement.Initialize(config.GameId, config.TestMode, this);
     }
 
     public void OnInitializationComplete()
@@ -29,13 +41,22 @@ public class AdsTest : MonoBehaviour,
 
     private void LoadAd()
     {
+        if (config == null || string.IsNullOrEmpty(AdUnitId))
+            return;
+
         Debug.Log("[Ads] Loading interstitial...");
-        Advertisement.Load(InterstitialId, this);
+        Advertisement.Load(AdUnitId, this);
     }
 
     public void ShowInterstitial()
     {
         Debug.Log("[Ads] ShowInterstitial called");
+
+        if (config == null)
+        {
+            Debug.LogError("[Ads] UnityAdsConfig is not assigned.");
+            return;
+        }
 
         if (!_isLoaded)
         {
@@ -45,7 +66,7 @@ public class AdsTest : MonoBehaviour,
         }
 
         _isLoaded = false;
-        Advertisement.Show(InterstitialId, this);
+        Advertisement.Show(AdUnitId, this);
     }
 
     public void OnUnityAdsAdLoaded(string adUnitId)

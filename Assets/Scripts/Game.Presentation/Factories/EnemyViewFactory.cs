@@ -1,11 +1,17 @@
+using Game.Core;
+using Game.Infrastructure;
+using Game.Signals;
+
+namespace Game.Presentation
+{
 public class EnemyViewFactory
 {
-    private readonly EnemyViewPool _asteroidPool;
-    private readonly EnemyViewPool _ufoPool;
+    private readonly AsteroidViewPool _asteroidPool;
+    private readonly UfoViewPool _ufoPool;
 
     public EnemyViewFactory(
-        EnemyViewPool asteroidPool,
-        EnemyViewPool ufoPool)
+        AsteroidViewPool asteroidPool,
+        UfoViewPool ufoPool)
     {
         _asteroidPool = asteroidPool;
         _ufoPool = ufoPool;
@@ -29,4 +35,5 @@ public class EnemyViewFactory
             _asteroidPool.Release(view);
         }
     }
+}
 }

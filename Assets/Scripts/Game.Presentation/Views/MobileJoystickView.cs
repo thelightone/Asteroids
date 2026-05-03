@@ -2,6 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+using Game.Core;
+using Game.Infrastructure;
+using Game.Signals;
+
+namespace Game.Presentation
+{
 public class MobileJoystickView : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     [SerializeField] private RectTransform _baseRect;
@@ -12,6 +18,14 @@ public class MobileJoystickView : MonoBehaviour, IPointerDownHandler, IDragHandl
 
     private Camera _uiCamera;
     private Vector2 _currentDirection;
+
+    private void Awake()
+    {
+        Canvas rootCanvas = GetComponentInParent<Canvas>();
+        _uiCamera = rootCanvas != null && rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay
+            ? rootCanvas.worldCamera
+            : null;
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -28,14 +42,6 @@ public class MobileJoystickView : MonoBehaviour, IPointerDownHandler, IDragHandl
         _currentDirection = Vector2.zero;
         UpdateHandle();
         DirectionChanged?.Invoke(_currentDirection);
-    }
-
-    private void Awake()
-    {
-        Canvas rootCanvas = GetComponentInParent<Canvas>();
-        _uiCamera = rootCanvas != null && rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay
-            ? rootCanvas.worldCamera
-            : null;
     }
 
     private void UpdateDirection(PointerEventData eventData)
@@ -77,4 +83,6 @@ public class MobileJoystickView : MonoBehaviour, IPointerDownHandler, IDragHandl
         Vector2 radius = _baseRect.sizeDelta * 0.5f * _handleRange;
         _handleRect.anchoredPosition = new Vector2(_currentDirection.x * radius.x, _currentDirection.y * radius.y);
     }
+}
+
 }

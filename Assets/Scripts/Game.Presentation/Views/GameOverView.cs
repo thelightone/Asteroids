@@ -1,32 +1,15 @@
 using TMPro;
 using UnityEngine;
-using Zenject;
 
+namespace Game.Presentation
+{
 public class GameOverView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
 
-    private PlayerService _playerService;
-
-    [Inject]
-    private void Construct(PlayerService playerService)
+    public void SetGameOverVisible(bool visible)
     {
-        _playerService = playerService;
-        _playerService.Died += OnPlayerDied;
-
-        _text.enabled = _playerService.ShipModel.IsDead;
+        _text.enabled = visible;
     }
-
-    private void OnPlayerDied()
-    {
-        _text.enabled = true;
-    }
-
-    private void OnDestroy()
-    {
-        if (_playerService != null)
-        {
-            _playerService.Died -= OnPlayerDied;
-        }
-    }
+}
 }

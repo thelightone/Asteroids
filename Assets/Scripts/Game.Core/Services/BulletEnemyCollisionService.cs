@@ -1,23 +1,21 @@
 using UnityEngine;
-using Zenject;
 
+namespace Game.Core
+{
 public class BulletEnemyCollisionService : IGameTickable
 {
     private readonly BulletCollectionService _bulletCollectionService;
     private readonly EnemyCollectionService _enemyCollectionService;
-    private readonly EnemySpawnService _enemySpawnService;
-    private readonly SignalBus _signalBus;
+    private readonly EnemyDestroyService _enemyDestroyService;
 
     public BulletEnemyCollisionService(
-    BulletCollectionService bulletCollectionService,
-    EnemyCollectionService enemyCollectionService,
-    EnemySpawnService enemySpawnService,
-    SignalBus signalBus)
+        BulletCollectionService bulletCollectionService,
+        EnemyCollectionService enemyCollectionService,
+        EnemyDestroyService enemyDestroyService)
     {
         _bulletCollectionService = bulletCollectionService;
         _enemyCollectionService = enemyCollectionService;
-        _enemySpawnService = enemySpawnService;
-        _signalBus = signalBus;
+        _enemyDestroyService = enemyDestroyService;
     }
 
     public void Tick(float deltaTime)
@@ -42,15 +40,8 @@ public class BulletEnemyCollisionService : IGameTickable
 
                 if (HasCollision(bullet, enemy))
                 {
-                    _signalBus.Fire(new EnemyDestroyedSignal((int)enemy.Type));
-
-                    if (enemy.Type == EnemyType.AsteroidLarge)
-                    {
-                        _enemySpawnService.SplitLargeAsteroid(enemy);
-                    }
-
+                    _enemyDestroyService.DestroyEnemy(enemy);
                     bullet.IsActive = false;
-                    enemy.IsActive = false;
                     break;
                 }
             }
@@ -64,4 +55,5 @@ public class BulletEnemyCollisionService : IGameTickable
 
         return distance <= combinedRadius;
     }
+}
 }

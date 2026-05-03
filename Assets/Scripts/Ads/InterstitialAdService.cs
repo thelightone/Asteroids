@@ -1,14 +1,16 @@
+using Game.Core;
+
 public sealed class InterstitialAdService : IInterstitialAdService
 {
-    private readonly AdsTest _adsTest;
+    private readonly UnityAdsService _unityAdsService;
 
-    public InterstitialAdService(AdsTest adsTest)
+    public InterstitialAdService(UnityAdsService unityAdsService)
     {
-        _adsTest = adsTest;
+        _unityAdsService = unityAdsService;
     }
 
     public void RequestInterstitial()
     {
-        _adsTest.ShowInterstitial();
+        _unityAdsService.ShowInterstitial();
     }
 }

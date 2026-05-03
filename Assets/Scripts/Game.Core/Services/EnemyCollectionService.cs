@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+namespace Game.Core
+{
 public class EnemyCollectionService
 {
     private readonly List<EnemyModel> _enemies = new();
@@ -23,4 +25,5 @@ public class EnemyCollectionService
     {
         _enemies.Clear();
     }
+}
 }

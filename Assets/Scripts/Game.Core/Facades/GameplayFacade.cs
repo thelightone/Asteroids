@@ -1,4 +1,6 @@
-public class GameplayFacade : IGameTickable
+namespace Game.Core
+{
+public class GameplayFacade
 {
     private readonly PlayerService _playerService;
     private readonly EnemySpawnService _enemySpawnService;
@@ -26,14 +28,16 @@ public class GameplayFacade : IGameTickable
         _enemyCleanupService = enemyCleanupService;
     }
 
-    public void Tick(float deltaTime)
+    public PlayerInputData Tick(float deltaTime)
     {
-        _playerService.Tick(deltaTime);
+        PlayerInputData playerInput = _playerService.Tick(deltaTime);
         _enemySpawnService.Tick(deltaTime);
-        _enemyMovementService.MoveEnemies(deltaTime);
+        _enemyMovementService.Tick(deltaTime);
         _bulletMovementService.Tick(deltaTime);
         _bulletEnemyCollisionService.Tick(deltaTime);
         _playerEnemyCollisionService.Tick(deltaTime);
         _enemyCleanupService.Tick(deltaTime);
+        return playerInput;
     }
+}
 }

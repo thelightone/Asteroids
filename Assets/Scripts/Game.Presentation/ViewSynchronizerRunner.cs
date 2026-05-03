@@ -1,6 +1,12 @@
 using UnityEngine;
 using Zenject;
 
+using Game.Core;
+using Game.Infrastructure;
+using Game.Signals;
+
+namespace Game.Presentation
+{
 [DefaultExecutionOrder(-40)]
 public class ViewSynchronizerRunner : MonoBehaviour
 {
@@ -21,4 +27,6 @@ public class ViewSynchronizerRunner : MonoBehaviour
         _enemyViewSynchronizer.Sync();
         _bulletViewSynchronizer.Sync();
     }
+}
+
 }

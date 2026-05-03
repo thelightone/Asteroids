@@ -1,9 +1,13 @@
 using UnityEngine;
 using Zenject;
+using Game.Signals;
 
-public class PlayerWeaponFacade : IGameTickable
+namespace Game.Core
+{
+public class PlayerWeaponFacade
 {
     private readonly PlayerService _playerService;
+    private readonly LaserConfig _laserConfig;
     private readonly BulletConfig _bulletConfig;
     private readonly BulletFactory _bulletFactory;
     private readonly BulletCollectionService _bulletCollectionService;
@@ -15,6 +19,7 @@ public class PlayerWeaponFacade : IGameTickable
 
     public PlayerWeaponFacade(
         PlayerService playerService,
+        LaserConfig laserConfig,
         BulletConfig bulletConfig,
         BulletFactory bulletFactory,
         BulletCollectionService bulletCollectionService,
@@ -23,6 +28,7 @@ public class PlayerWeaponFacade : IGameTickable
         )
     {
         _playerService = playerService;
+        _laserConfig = laserConfig;
         _bulletConfig = bulletConfig;
         _bulletFactory = bulletFactory;
         _bulletCollectionService = bulletCollectionService;
@@ -33,7 +39,7 @@ public class PlayerWeaponFacade : IGameTickable
         _signalBus = signalBus;
     }
 
-    public void Tick(float deltaTime)
+    public void Tick(float deltaTime, PlayerInputData playerInput)
     {
         if (_playerService.ShipModel.IsDead)
         {
@@ -47,14 +53,12 @@ public class PlayerWeaponFacade : IGameTickable
 
         Vector2 forward = _playerService.Forward;
 
-        PlayerInputData input = _playerService.CurrentInput;
-
-        if (input.FireBullet)
+        if (playerInput.FireBullet)
         {
             TryFireBullet(forward);
         }
 
-        if (input.FireLaser)
+        if (playerInput.FireLaser)
         {
             TryFireLaser(forward);
         }
@@ -90,6 +94,7 @@ public class PlayerWeaponFacade : IGameTickable
 
         _laserService.FireLaser(start, forward, _playerService.LaserDistance);
 
-        _signalBus.Fire(new LaserFiredSignal(start, end));
+        _signalBus.Fire(new LaserFiredSignal(start, end, _laserConfig.Duration));
     }
+}
 }

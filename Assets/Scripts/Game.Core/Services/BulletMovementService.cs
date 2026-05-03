@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Game.Core
+{
 public class BulletMovementService : IGameTickable
 {
     private readonly BulletCollectionService _bulletCollectionService;
@@ -31,4 +33,5 @@ public class BulletMovementService : IGameTickable
             }
         }
     }
+}
 }

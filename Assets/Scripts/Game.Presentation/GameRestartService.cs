@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using Zenject;
 
+using Game.Core;
+using Game.Infrastructure;
+using Game.Signals;
+
+namespace Game.Presentation
+{
 public class GameRestartService : MonoBehaviour
 {
     private PlayerService _playerService;
@@ -45,4 +51,6 @@ public class GameRestartService : MonoBehaviour
         {
         }
     }
+}
+
 }

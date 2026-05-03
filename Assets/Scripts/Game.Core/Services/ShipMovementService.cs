@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Game.Core
+{
 public class ShipMovementService
 {
     public void ApplyRotation(ShipModel shipModel, float turnDirection, float rotationSpeed, float deltaTime)
@@ -48,4 +50,5 @@ public class ShipMovementService
     {
         shipModel.Position += shipModel.Velocity * deltaTime;
     }
+}
 }

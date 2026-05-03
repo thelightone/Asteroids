@@ -1,6 +1,6 @@
 {
     "name": "Game.Infrastructure",
-    "rootNamespace": "",
+    "rootNamespace": "Game.Infrastructure",
     "references": [
         "GUID:69ef51ed1cc2c5c4084f6b9070afa2b7",
         "GUID:89f06d9be1f883b49af611e4176ee28c",

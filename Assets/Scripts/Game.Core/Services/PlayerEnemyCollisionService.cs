@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Game.Core
+{
 public class PlayerEnemyCollisionService : IGameTickable
 {
     private readonly PlayerService _playerService;
@@ -77,4 +79,5 @@ public class PlayerEnemyCollisionService : IGameTickable
         float distance = Vector2.Distance(ship.Position, enemy.Position);
         return distance <= ship.Radius + enemy.Radius;
     }
+}
 }

@@ -1,3 +1,5 @@
+namespace Game.Core
+{
 public class LaserConfig
 {
     public int MaxCharges;
@@ -5,4 +7,5 @@ public class LaserConfig
     public float Cooldown;
     public float Length;
     public float Duration;
+}
 }

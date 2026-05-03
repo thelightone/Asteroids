@@ -2,6 +2,8 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 
+namespace Game.Infrastructure
+{
 public class JsonConfigLoader
 {
     public T Load<T>(string fileName)
@@ -22,4 +24,6 @@ public class JsonConfigLoader
 
         return config;
     }
+}
+
 }

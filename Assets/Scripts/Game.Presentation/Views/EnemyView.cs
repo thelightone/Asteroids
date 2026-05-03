@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Game.Presentation
+{
 public class EnemyView : MonoBehaviour
 {
     private Vector3 _baseScale;
@@ -8,14 +10,6 @@ public class EnemyView : MonoBehaviour
     private void Awake()
     {
         EnsureBaseScale();
-    }
-
-    public void OnSpawn()
-    {
-    }
-
-    public void OnDespawn()
-    {
     }
 
     public void SetScaleMultiplier(float multiplier)
@@ -34,4 +28,5 @@ public class EnemyView : MonoBehaviour
         _baseScale = transform.localScale;
         _isBaseScaleInitialized = true;
     }
+}
 }

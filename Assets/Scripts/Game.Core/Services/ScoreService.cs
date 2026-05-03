@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using Game.Signals;
 
+namespace Game.Core
+{
 public class ScoreService : IInitializable, IDisposable
 {
     public int Score { get; private set; }
@@ -34,12 +37,9 @@ public class ScoreService : IInitializable, IDisposable
 
     public void AddReward(EnemyType type)
     {
-        Debug.Log("AddReward called for type: " + type);
-
         if (_rewards.TryGetValue(type, out int reward))
         {
             Score += reward;
-            Debug.Log("Reward found: " + reward + ", total score: " + Score);
             _signalBus.Fire(new ScoreChangedSignal(Score));
         }
         else
@@ -47,10 +47,5 @@ public class ScoreService : IInitializable, IDisposable
             Debug.LogError("No reward configured for enemy type: " + type);
         }
     }
-
-    public void Reset()
-    {
-        Score = 0;
-        _signalBus.Fire(new ScoreChangedSignal(Score));
-    }
+}
 }

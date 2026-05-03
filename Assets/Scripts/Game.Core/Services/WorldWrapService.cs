@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Game.Core
+{
 public class WorldWrapService
 {
     public void WrapPosition(ShipModel shipModel, WorldConfig worldConfig)
@@ -57,4 +59,5 @@ public class WorldWrapService
 
         enemyModel.Position = position;
     }
+}
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Game.Core
+{
 public struct PlayerInputData
 {
     public float TurnDirection;
@@ -9,4 +11,5 @@ public struct PlayerInputData
 
     public bool FireBullet;
     public bool FireLaser;
+}
 }

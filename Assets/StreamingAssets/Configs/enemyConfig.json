@@ -8,6 +8,8 @@
     "LargeAsteroidReward": 20,
     "SmallAsteroidReward": 50,
     "UfoReward": 100,
+    "LargeAsteroidSpawnInterval": 4.0,
+    "LargeAsteroidSpawnDirectionSpread": 0.25,
     "UfoSpawnInterval": 8.0,
     "UfoBounceDuration": 2.0
 }

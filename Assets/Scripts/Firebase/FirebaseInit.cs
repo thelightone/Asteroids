@@ -13,8 +13,6 @@ public class FirebaseInit : MonoBehaviour
 
             if (status == DependencyStatus.Available)
             {
-                FirebaseApp app = FirebaseApp.DefaultInstance;
-
                 FirebaseAnalytics.LogEvent("game_started");
 
                 Debug.Log("Firebase Analytics initialized");

@@ -1,5 +1,9 @@
 using UnityEngine;
 
+using Game.Core;
+
+namespace Game.Presentation
+{
 public class ShipStatsViewModel
 {
     private readonly PlayerService _playerService;
@@ -9,46 +13,18 @@ public class ShipStatsViewModel
         _playerService = playerService;
     }
 
-    public string PositionText
-    {
-        get
-        {
-            Vector2 position = _playerService.ShipModel.Position;
-            return $"Pos: X {position.x:F2}, Y {position.y:F2}";
-        }
-    }
+    public Vector2 ShipPosition => _playerService.ShipModel.Position;
 
-    public string RotationText
-    {
-        get
-        {
-            return $"Rot: {_playerService.ShipModel.Rotation:F1}";
-        }
-    }
+    public float ShipRotation => _playerService.ShipModel.Rotation;
 
-    public string SpeedText
-    {
-        get
-        {
-            float speed = _playerService.ShipModel.Velocity.magnitude;
-            return $"Speed: {speed:F2}";
-        }
-    }
+    public float ShipSpeed => _playerService.ShipModel.Velocity.magnitude;
 
-    public string LaserChargesText
-    {
-        get
-        {
-            ShipModel ship = _playerService.ShipModel;
-            return $"Laser Charges: {ship.LaserCharges}/{ship.MaxLaserCharges}";
-        }
-    }
+    public int LaserCharges => _playerService.ShipModel.LaserCharges;
 
-    public string LaserCooldownText
-    {
-        get
-        {
-            return $"Laser Cooldown: {_playerService.ShipModel.LaserCooldownLeft:F2}";
-        }
-    }
+    public int MaxLaserCharges => _playerService.ShipModel.MaxLaserCharges;
+
+    public float LaserCooldownLeft => Mathf.Max(
+        _playerService.ShipModel.LaserCooldownLeft,
+        _playerService.ShipModel.LaserFireCooldownLeft);
+}
 }

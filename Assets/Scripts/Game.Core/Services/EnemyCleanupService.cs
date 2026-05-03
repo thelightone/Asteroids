@@ -1,3 +1,5 @@
+namespace Game.Core
+{
 public class EnemyCleanupService : IGameTickable
 {
     private readonly EnemyCollectionService _enemyCollectionService;
@@ -19,4 +21,5 @@ public class EnemyCleanupService : IGameTickable
             }
         }
     }
+}
 }

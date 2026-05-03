@@ -1,10 +1,15 @@
+using UnityEngine;
+
+namespace Game.Core
+{
 public class BulletModel
 {
-    public UnityEngine.Vector2 Position;
-    public UnityEngine.Vector2 Velocity;
+    public Vector2 Position { get; internal set; }
+    public Vector2 Velocity { get; internal set; }
 
-    public float LifeTime;
-    public float Radius;
+    public float LifeTime { get; internal set; }
+    public float Radius { get; internal set; }
 
-    public bool IsActive;
+    public bool IsActive { get; internal set; }
+}
 }

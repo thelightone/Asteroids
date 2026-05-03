@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+namespace Game.Core
+{
 public class BulletCollectionService
 {
     private readonly List<BulletModel> _bullets = new();
@@ -23,4 +25,5 @@ public class BulletCollectionService
     {
         _bullets.Clear();
     }
+}
 }

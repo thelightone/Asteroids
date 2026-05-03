@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Game.Core
+{
 public class EnemyFactory
 {
     public EnemyModel CreateLargeAsteroid(Vector2 position, Vector2 velocity, float radius)
@@ -40,4 +42,5 @@ public class EnemyFactory
             IsActive = true
         };
     }
+}
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Game.Core
+{
 public class BulletFactory
 {
     public BulletModel Create(Vector2 position, Vector2 velocity, float lifeTime, float radius)
@@ -13,4 +15,5 @@ public class BulletFactory
             IsActive = true
         };
     }
+}
 }

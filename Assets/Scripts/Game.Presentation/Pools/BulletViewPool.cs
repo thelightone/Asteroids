@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Game.Presentation
+{
 public class BulletViewPool
 {
     private readonly BulletView _prefab;
@@ -15,22 +17,31 @@ public class BulletViewPool
 
     public BulletView Get()
     {
+        BulletView view;
+
         if (_pool.Count > 0)
         {
             int lastIndex = _pool.Count - 1;
-            BulletView view = _pool[lastIndex];
+            view = _pool[lastIndex];
             _pool.RemoveAt(lastIndex);
 
             view.gameObject.SetActive(true);
-            return view;
+        }
+        else
+        {
+            view = Object.Instantiate(_prefab, _root);
         }
 
-        return Object.Instantiate(_prefab, _root);
+        return view;
     }
 
     public void Release(BulletView view)
     {
+        if (!view)
+            return;
+
         view.gameObject.SetActive(false);
         _pool.Add(view);
     }
+}
 }

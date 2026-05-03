@@ -1,3 +1,5 @@
+namespace Game.Core
+{
 public class EnemyConfig
 {
     public float LargeAsteroidSpeed;
@@ -12,6 +14,9 @@ public class EnemyConfig
     public int SmallAsteroidReward;
     public int UfoReward;
 
+    public float LargeAsteroidSpawnInterval;
+    public float LargeAsteroidSpawnDirectionSpread;
     public float UfoSpawnInterval;
     public float UfoBounceDuration;
+}
 }
